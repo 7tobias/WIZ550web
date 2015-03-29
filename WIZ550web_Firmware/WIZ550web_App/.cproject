@@ -75,6 +75,7 @@
 									<listOptionValue builtIn="false" value="../src/Configuration"/>
 									<listOptionValue builtIn="false" value="../src/Ethernet"/>
 									<listOptionValue builtIn="false" value="../src/Ethernet/W5500"/>
+									<listOptionValue builtIn="false" value="../src/Internet/Freebus-IP"/>
 									<listOptionValue builtIn="false" value="../src/Internet/DHCP"/>
 									<listOptionValue builtIn="false" value="../src/Internet/FTPServer"/>
 									<listOptionValue builtIn="false" value="../src/Internet/httpServer"/>

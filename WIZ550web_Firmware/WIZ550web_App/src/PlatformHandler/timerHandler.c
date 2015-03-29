@@ -15,6 +15,7 @@
 
 #include "dhcp.h"
 #include "httpServer.h" // for function httpServer_time_handler()
+#include "beamerhandler.h" // for beamer_time_handler();
 
 volatile uint16_t msec_cnt = 0;
 volatile uint8_t sec_cnt = 0;
@@ -35,6 +36,7 @@ void TIM2_IRQHandler(void)
 
 			httpServer_time_handler();
 			DHCP_time_handler();
+			beamer_time_handler();
 			msec_cnt = 0;
 		}
 

@@ -1,14 +1,4 @@
-/*
-===============================================================================
- Name        : main.c
- Author      : WIZnet
- Version     :
- Copyright   : WIZnet Co., Ltd. 2014
- Description : main definition
-===============================================================================
-*/
-
-/*
+ /*
  * @brief WIZ550WEB Firmware
  *
  * @note
@@ -48,6 +38,11 @@
 #include "dataflash.h"
 #endif
 
+#include "freebus.h"
+#include "debugmulticast.h"
+#include "beamerhandler.h"
+#include "avrhandler.h"
+
 ///////////////////////////////////////
 // Debugging Message Printout enable //
 ///////////////////////////////////////
@@ -71,19 +66,25 @@ uint8_t FTP_DBUF[_MAX_SS];
 ////////////////////////////////
 // W5500 HW Socket Definition //
 ////////////////////////////////
-#if defined(F_APP_FTP)
-#define MAX_HTTPSOCK	4
-#else
-#define MAX_HTTPSOCK	6
-#endif
 
 #define SOCK_CONFIG		0
 #define SOCK_DHCP		1
+
 #if defined(F_APP_FTP)
-uint8_t socknumlist[] = {4, 5, 6, 7};
+
+	#define MAX_HTTPSOCK	2
+	uint8_t socknumlist[] = {4, 5};
 #else
-uint8_t socknumlist[] = {2, 3, 4, 5, 6, 7};
+	#define MAX_HTTPSOCK	4
+	uint8_t socknumlist[] = {2, 3, 4, 5};
 #endif
+
+#if defined(_DEBUG_MULTICAST_)
+#define SOCK_DEBUG		6
+#endif
+
+#define SOCK_FREEBUS	7
+
 //////////////////////////////////////////
 
 int g_mkfs_done = 0;
@@ -168,6 +169,7 @@ int main(void)
 
 		DHCP_init(SOCK_DHCP, TX_BUF);
 		reg_dhcp_cbfunc(w5500_dhcp_assign, w5500_dhcp_assign, w5500_dhcp_conflict);
+
 
 		while(1)
 		{
@@ -258,7 +260,17 @@ int main(void)
 	DataFlash_Init(); // DF CS Init
 #endif
 
-	atc_init();
+	//atc_init();
+
+
+	FREEBUS_init(SOCK_FREEBUS);
+#ifdef _DEBUG_MULTICAST_
+	DEBUG_MULTICAST_init(SOCK_DEBUG);
+	send_debugmulticast_data("Init");
+#endif
+	beamer_init();
+	avr_init();
+
 
 	httpServer_init(TX_BUF, RX_BUF, MAX_HTTPSOCK, socknumlist);
 #ifdef _USE_WATCHDOG_
@@ -286,7 +298,11 @@ int main(void)
 #endif
 
 		do_udp_config(SOCK_CONFIG);				// Configuration tool handler
-		atc_run();								// AT Command handler
+		//atc_run();								// AT Command handler
+
+		beamer_run();
+		avr_run();
+		FREEBUS_run();
 
 		if(value->options.dhcp_use)	DHCP_run();	// DHCP client handler
 

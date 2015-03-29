@@ -267,7 +267,8 @@ void serial_info_init(USART_TypeDef *pUART, struct __serial_info *serial)
 
 void USART1_Configuration(void)
 {
-  //USART_InitTypeDef USART_InitStructure;
+  // Fixed Baudrate settings for beamer / avr
+  USART_InitTypeDef USART_InitStructure;
   USART_ClockInitTypeDef USART_ClockInitStruct;
   GPIO_InitTypeDef GPIO_InitStructure;
 
@@ -293,24 +294,24 @@ void USART1_Configuration(void)
         - Hardware flow control disabled (RTS and CTS signals)
         - Receive and transmit enabled
   */
-  /*
+
   // Default USART1 Settings
-  USART_InitStructure.USART_BaudRate = 115200;
+  USART_InitStructure.USART_BaudRate = 9600;
   USART_InitStructure.USART_WordLength = USART_WordLength_8b;
   USART_InitStructure.USART_StopBits = USART_StopBits_1;
   USART_InitStructure.USART_Parity = USART_Parity_No ;
   USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
   USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
   USART_Init(USART1, &USART_InitStructure);
-  */
+
   USART_ClockInitStruct.USART_Clock = USART_Clock_Disable;
   USART_ClockInitStruct.USART_CPOL = USART_CPOL_Low;
   USART_ClockInitStruct.USART_CPHA = USART_CPHA_2Edge;
   USART_ClockInitStruct.USART_LastBit = USART_LastBit_Disable;
 
   /* Configure the USARTx */
-  serial_info_init(USART1, &(value->serial_info[0])); // Load USART1 Settings from Flash
-  USART_ClockInit(USART1, &USART_ClockInitStruct);
+  //serial_info_init(USART1, &(value->serial_info[0])); // Load USART1 Settings from Flash
+  //USART_ClockInit(USART1, &USART_ClockInitStruct);
 
   /* Enable the USARTx */
   USART_Cmd(USART1, ENABLE);
@@ -397,7 +398,8 @@ void USART2_IRQHandler(void)
 
 void USART2_Configuration(void)
 {
-	//USART_InitTypeDef USART_InitStructure;
+	// fixed baud rate settings for beamer / avr
+	USART_InitTypeDef USART_InitStructure;
 	USART_ClockInitTypeDef USART_ClockInitStruct;
 
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -436,23 +438,23 @@ void USART2_Configuration(void)
 	   - Hardware flow control disabled (RTS and CTS signals)
 	   - Receive and transmit enabled
 	 */
-	/*
-	USART_InitStructure.USART_BaudRate = 115200;
+
+	USART_InitStructure.USART_BaudRate = 9600;
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
 	USART_InitStructure.USART_StopBits = USART_StopBits_1;
 	USART_InitStructure.USART_Parity = USART_Parity_No ;
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
 	USART_Init(USART2, &USART_InitStructure);
-	*/
+
 	USART_ClockInitStruct.USART_Clock = USART_Clock_Disable;
 	USART_ClockInitStruct.USART_CPOL = USART_CPOL_Low;
 	USART_ClockInitStruct.USART_CPHA = USART_CPHA_2Edge;
 	USART_ClockInitStruct.USART_LastBit = USART_LastBit_Disable;
 
 	/* Configure the USARTx */
-	serial_info_init(USART2, &(value->serial_info[1])); // Load USART2 Settings from Flash
-	USART_ClockInit(USART2, &USART_ClockInitStruct);
+	//serial_info_init(USART2, &(value->serial_info[1])); // Load USART2 Settings from Flash
+	//USART_ClockInit(USART2, &USART_ClockInitStruct);
 
 	/* Enable USARTy Receive and Transmit interrupts */
 	USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); 
