@@ -112,7 +112,9 @@ int main(int argc, char* argv[])
 	LED_On(LED1);
 	LED_Off(LED2);
 
+#ifndef DISABLEBOOTPIN
 	BOOT_Pin_Init();
+#endif
 
 	USART1_Configuration();
 
@@ -135,7 +137,11 @@ int main(int argc, char* argv[])
 
 	ret = application_update();
 
-	if((get_bootpin_Status() == 0) && (ret != TFTP_FAIL)) {
+	if(
+#ifndef DISABLEBOOTPIN
+			(get_bootpin_Status() == 0) &&
+#endif
+			(ret != TFTP_FAIL)) {
 		uint32_t tmp;
 
 #if !defined(MULTIFLASH_ENABLE)

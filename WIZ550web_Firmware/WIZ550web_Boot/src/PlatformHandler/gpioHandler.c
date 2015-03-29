@@ -85,6 +85,7 @@ uint8_t get_LED_Status(Led_TypeDef Led)
   * 	@arg D10 @arg D11 @arg D12 @arg D13 @arg D14 @arg D15
   * @return None
   */
+#ifndef DISABLEBOOTPIN
 void BOOT_Pin_Init()
 {
 	GPIO_InitTypeDef	GPIO_InitStructure;
@@ -96,6 +97,7 @@ void BOOT_Pin_Init()
 	
   	GPIO_Init(BOOT_GPIO_PORT, &GPIO_InitStructure);
 }
+#endif
 
 /**
   * @brief	To get the status of GPIO.
@@ -106,8 +108,11 @@ void BOOT_Pin_Init()
   * 	@arg D10 @arg D11 @arg D12 @arg D13 @arg D14 @arg D15
   * @return The status of GPIO
   */
+
+#ifndef DISABLEBOOTPIN
 uint8_t get_bootpin_Status()
 {
 	return GPIO_ReadInputDataBit(BOOT_GPIO_PORT, BOOT_PIN);
 }
+#endif
 

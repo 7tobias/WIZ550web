@@ -4,6 +4,9 @@
 
 #include <stdint.h>
 
+//disable bootpin to be able to use all gpios during boot
+#define DISABLEBOOTPIN
+
 #define LEDn                             4
 
 #define LED1_PIN						GPIO_Pin_4
@@ -14,9 +17,11 @@
 #define LED2_GPIO_PORT					GPIOC
 #define LED2_GPIO_CLK					RCC_APB2Periph_GPIOC
 
+#ifndef DISABLEBOOTPIN
 #define BOOT_PIN						GPIO_Pin_12	
 #define BOOT_GPIO_PORT					GPIOC
 #define BOOT_GPIO_CLK					RCC_APB2Periph_GPIOC
+#endif
 
 typedef enum
 {
@@ -31,7 +36,10 @@ void LED_On(Led_TypeDef Led);
 void LED_Off(Led_TypeDef Led);
 void LED_Toggle(Led_TypeDef Led);
 uint8_t get_LED_Status(Led_TypeDef Led);
+
+#ifndef DISABLEBOOTPIN
 void BOOT_Pin_Init();
 uint8_t get_bootpin_Status();
+#endif
 
 #endif
