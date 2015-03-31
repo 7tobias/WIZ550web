@@ -10,7 +10,8 @@
 
 #define DEBUG_MULTICAST_PORT      	1234	      ///< DHCP server port number
 
-
+// comment to disable debug messages via multicasts
+#define _DEBUG_MULTICAST_
 
 #include <stdint.h>
 
