@@ -6,7 +6,7 @@
  */
 
 
-#define _FREEBUS_DEBUG_
+#define _AVRHANDLER_DEBUG_
 
 #include "uartHandler.h"
 
@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#ifdef _FREEBUS_DEBUG_
+#ifdef _AVRHANDLER_DEBUG_
 	#include "debugmulticast.h"
 #endif
 

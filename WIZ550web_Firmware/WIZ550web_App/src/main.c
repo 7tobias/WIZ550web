@@ -46,7 +46,7 @@
 ///////////////////////////////////////
 // Debugging Message Printout enable //
 ///////////////////////////////////////
-#define _MAIN_DEBUG_
+//#define _MAIN_DEBUG_
 //#define _WEB_DEBUG_
 #if defined (_MAIN_DEBUG_) || defined (_WEB_DEBUG_)
 #include <stdio.h>
@@ -106,7 +106,7 @@ static void display_SDcard_Info(uint8_t mount_ret);
 int main(void)
 {
 	uint8_t i;
-#if defined (_MAIN_DEBUG_) && defined (_USE_SDCARD_)
+#if defined (_MAIN_DEBUG_) || defined (_USE_SDCARD_)
 	uint8_t ret;
 #endif
 #if defined(F_APP_FTP)

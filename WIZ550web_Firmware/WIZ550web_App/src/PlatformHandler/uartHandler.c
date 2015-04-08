@@ -311,7 +311,7 @@ void USART1_Configuration(void)
 
   /* Configure the USARTx */
   //serial_info_init(USART1, &(value->serial_info[0])); // Load USART1 Settings from Flash
-  //USART_ClockInit(USART1, &USART_ClockInitStruct);
+  USART_ClockInit(USART1, &USART_ClockInitStruct);
 
   /* Enable the USARTx */
   USART_Cmd(USART1, ENABLE);
@@ -454,7 +454,7 @@ void USART2_Configuration(void)
 
 	/* Configure the USARTx */
 	//serial_info_init(USART2, &(value->serial_info[1])); // Load USART2 Settings from Flash
-	//USART_ClockInit(USART2, &USART_ClockInitStruct);
+	USART_ClockInit(USART2, &USART_ClockInitStruct);
 
 	/* Enable USARTy Receive and Transmit interrupts */
 	USART_ITConfig(USART2, USART_IT_RXNE, ENABLE); 
